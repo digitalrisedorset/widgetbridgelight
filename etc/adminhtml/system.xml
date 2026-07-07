@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+
+    <system>
+
+        <section id="reactedge"
+                 translate="label"
+                 sortOrder="900"
+                 showInDefault="1"
+                 showInWebsite="1"
+                 showInStore="1">
+
+            <label>ReactEdge</label>
+            <tab>general</tab>
+            <resource>ReactEdge_Integration::config</resource>
+
+            <group id="assetdir"
+                   translate="label"
+                   sortOrder="10"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="10">
+                <label>Asset Directory</label>
+
+                <field id="environment"
+                       translate="label"
+                       type="text"
+                       sortOrder="10"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                <label>Asset Environment</label>
+                <comment>Environment of published ReactEdge deployment artifacts.</comment>
+            </field>
+        </group>
+
+            <!-- ===================== -->
+            <!-- USP                   -->
+            <!-- ===================== -->
+            <group id="usp"
+                   translate="label"
+                   sortOrder="20"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="20">
+
+                <label>USP Widget</label>
+
+                <field id="enabled" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable USP</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+            <!-- ===================== -->
+            <!-- BANNER                -->
+            <!-- ===================== -->
+            <group id="banner"
+                   translate="label"
+                   sortOrder="30"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+
+                <label>Banner Widget</label>
+
+                <field id="enabled" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Banner</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+            <!-- ===================== -->
+            <!-- BANNER                -->
+            <!-- ===================== -->
+            <group id="bannermulti"
+                   translate="label"
+                   sortOrder="40"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+
+                <label>Multi Banner Widget</label>
+
+                <field id="enabled" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Banner</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+            <!-- ===================== -->
+            <!-- STORE FINDER          -->
+            <!-- ===================== -->
+            <group id="storefinder"
+                   translate="label"
+                   sortOrder="50"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+
+                <label>Store Finder Widget</label>
+
+                <field id="enabled" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Store Finder</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+            <!-- ===================== -->
+            <!-- MEGA MENU             -->
+            <!-- ===================== -->
+            <group id="megamenu"
+                   translate="label"
+                   sortOrder="60"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+
+                <label>Mega Menu Widget</label>
+
+                <field id="enabled" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Mega Menu</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+            <!-- ===================== -->
+            <!-- Minicart                   -->
+            <!-- ===================== -->
+            <group id="minicart"
+                   translate="label"
+                   sortOrder="70"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+
+                <label>Minicart Widget</label>
+
+                <field id="enabled" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Minicart</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+            <!-- ===================== -->
+            <!-- Google Reviews                   -->
+            <!-- ===================== -->
+            <group id="googlereviews"
+                   translate="label"
+                   sortOrder="80"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+
+                <label>Google Reviews Widget</label>
+
+                <field id="enabled" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Widget</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+            <!-- ===================== -->
+            <!-- Trustpilot Reviews                   -->
+            <!-- ===================== -->
+            <group id="trustpilot"
+                   translate="label"
+                   sortOrder="90"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+
+                <label>Trustpilot Reviews Widget</label>
+
+                <field id="enabled" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Widget</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+            <!-- ===================== -->
+            <!-- INTENT DISCOVERY      -->
+            <!-- ===================== -->
+            <group id="intentdiscovery"
+                   translate="label"
+                   sortOrder="100"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+
+                <label>Intent Discovery Widget</label>
+
+                <field id="enabled" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Intent Discovery</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+        </section>
+
+    </system>
+
+</config>

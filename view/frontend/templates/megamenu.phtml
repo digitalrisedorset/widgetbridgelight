@@ -1,0 +1,19 @@
+<?php
+/** @var \ReactEdge\WidgetBridge\Block\Widget $block */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \ReactEdge\WidgetBridge\ViewModel\Widget $viewModel */
+
+$viewModel = $block->getViewModel();
+$widgetId = $block->getData('widget_id');
+
+if (!$viewModel->isEnabled($widgetId)) {
+    return;
+}
+
+?>
+
+<nav class="navigation" data-action="navigation">
+<megamenu-widget data-load="eager">
+    <?= $viewModel->getWidgetSSRHtml($widgetId); ?>
+</megamenu-widget>
+</nav>

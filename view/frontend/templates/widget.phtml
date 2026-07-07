@@ -1,0 +1,15 @@
+<?php
+/** @var \ReactEdge\WidgetBridge\Block\Widget $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<?php
+$widgetId = $block->getWidgetId();
+
+if (!$block->isEnabled()) {
+    return;
+}
+?>
+
+<script src="<?= $escaper->escapeUrl($block->getScriptUrl()) ?>"></script>
+
+<<?= $block->escapeHtml($widgetId) ?>-widget></<?= $block->escapeHtml($widgetId) ?>-widget>

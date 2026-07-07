@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Cache/etc/cache.xsd">
+
+    <type
+        name="reactedge"
+        instance="ReactEdge\WidgetBridge\Model\Cache">
+
+        <label>ReactEdge Cache</label>
+        <description>
+            Cached ReactEdge artifacts including widget contracts, server-side rendered HTML and runtime metadata.
+        </description>
+
+    </type>
+
+</config>

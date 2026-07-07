@@ -1,0 +1,11 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+$viewModel = $block->getViewModel();
+$widgetId = $block->getData('widget_id');
+
+if (!$viewModel->isEnabled($widgetId)) {
+    return;
+}
+
+?>
+<script src="<?= $block->getViewFileUrl('ReactEdge_WidgetBridge::js/signals.js') ?>"></script>

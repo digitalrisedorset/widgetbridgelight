@@ -1,0 +1,19 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<?php foreach ($block->getCssAssets() as $css): ?>
+    <link
+        rel="preload"
+        as="style"
+        href="<?= $escaper->escapeUrl($css) ?>"
+        crossorigin="anonymous"
+        onload="this.onload=null;this.rel='stylesheet'">
+
+    <noscript>
+        <link
+            rel="stylesheet"
+            href="<?= $escaper->escapeUrl($css) ?>"
+            crossorigin="anonymous">
+    </noscript>
+<?php endforeach; ?>

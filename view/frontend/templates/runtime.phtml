@@ -1,0 +1,14 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+$runtimeBase = $block->getViewFileUrl(
+    'ReactEdge_WidgetBridge::js/import/'
+);
+
+$runtimeUrl = $block->getViewFileUrl(
+    'ReactEdge_WidgetBridge::js/widget-loader.js'
+);
+?>
+
+<script id="reactedge-runtime" crossorigin="anonymous" src="<?= $escaper->escapeUrl($runtimeUrl) ?>" defer="defer"></script>

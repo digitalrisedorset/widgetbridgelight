@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="ReactEdge\WidgetBridge\Api\ContextInterface"
+                type="ReactEdge\WidgetBridge\Model\Context"
+    />
+
+    <preference for="ReactEdge\WidgetBridge\Api\Data\ContextDataInterface"
+                type="ReactEdge\WidgetBridge\Model\Data\ContextData"
+    />
+
+    <preference for="ReactEdge\WidgetBridge\Api\Data\WidgetRenderPayloadInterfacee"
+                type="ReactEdge\WidgetBridge\Model\Renderer\WidgetRenderPayload"
+    />
+
+    <preference
+        for="ReactEdge\WidgetBridge\Api\ActivityInterface"
+        type="ReactEdge\WidgetBridge\Model\OpenTelemetry\NullActivity"/>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="reactedge_ssr_generate"
+                      xsi:type="object">
+                    ReactEdge\WidgetBridge\Command\GenerateSsrCommand
+                </item>
+                <item name="reactedge_contract_export"
+                      xsi:type="object">
+                    ReactEdge\WidgetBridge\Command\ExportWidgetContract
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>
