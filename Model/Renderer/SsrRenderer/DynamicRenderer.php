@@ -5,7 +5,6 @@ namespace ReactEdge\WidgetBridge\Model\Renderer\SsrRenderer;
 
 use Laminas\ReCaptcha\Exception;
 use ReactEdge\WidgetBridge\Api\ActivityInterface;
-use ReactEdge\OpenTelemetry\Api\OperationInterface;
 
 class DynamicRenderer
 {
@@ -19,7 +18,6 @@ class DynamicRenderer
     }
 
     public function render(
-        OperationInterface $render,
         Contract $contract,
         string $widgetId
     ): string {
@@ -33,20 +31,10 @@ class DynamicRenderer
         $cachedHtml = $this->ssrCacheHandler->loadCache($payload);
 
         if ($cachedHtml !== null) {
-            $this->activity->addEvent(
-                $render,
-                'ssr.cache.hit',
-                [
-                    'widget.id' => $payload['widgetId'] ?? null,
-                    'widget' => $payload['widget'] ?? null,
-                ]
-            );
-
             return $cachedHtml;
         }
 
         $ssrRequest = $this->activity->startChildOperation(
-            $render,
             'ssr.api.request',
             [
                 'widget.id' => $widgetId,
@@ -58,14 +46,6 @@ class DynamicRenderer
         try {
             $result = $this->ssrApi->requestSSR($ssrRequest, $payload);
             $this->ssrCacheHandler->saveCache($payload, $result);
-
-            $this->activity->endOperation(
-                $ssrRequest,
-                [
-                    'api_response.is_string' => is_string($result),
-                    'api_response.length' => is_string($result) ? strlen($result) : 0,
-                ]
-            );
 
             $ssr = is_string($result) ? $result : '';
             if ($result) {
@@ -80,22 +60,12 @@ class DynamicRenderer
             );
 
             $this->activity->addEvent(
-                $render,
                 'SSR Dynamic Render Completed',
                 [
                     'css.length' => strlen($contract->getSsrCss()),
                     'ssr.length' => strlen($ssr),
                     'html.length' => strlen($html),
                     'snapshot.saved' => $render->getId() . '.html',
-                ]
-            );
-
-            $this->activity->endOperation(
-                $render,
-                [
-                    'html.length' => strlen($html),
-                    'html.hash' => md5($html),
-                    'snapshot.id' => $render->getId(),
                 ]
             );
 
