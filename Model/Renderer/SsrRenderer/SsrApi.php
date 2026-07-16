@@ -5,7 +5,6 @@ namespace ReactEdge\WidgetBridge\Model\Renderer\SsrRenderer;
 
 use Magento\Framework\HTTP\Client\Curl;
 use ReactEdge\WidgetBridge\Api\ActivityInterface;
-use ReactEdge\OpenTelemetry\Api\OperationInterface;
 use ReactEdge\WidgetBridge\Model\Config;
 use ReactEdge\WidgetBridge\Model\Config\Runtime as RuntimeConfig;
 
@@ -27,7 +26,6 @@ class SsrApi
      * @return string
      */
     public function requestSSR(
-        OperationInterface $parentOperation,
         array $payload
     ): string {
         $runtimeConfig = $this->runtime->getRuntimeConfig();
@@ -56,16 +54,6 @@ class SsrApi
             $this->siteViewModeReader->getViewPort()
         );
 
-        $this->curl->addHeader(
-            'X-Trace-Id',
-            $parentOperation->getTraceId()
-        );
-
-        $this->curl->addHeader(
-            'X-Parent-Span-Id',
-            $parentOperation->getSpanId()
-        );
-
         $this->curl->post(
             $this->config->getWidgetsSSREngineUrl(). '/render',
             json_encode($payload)
@@ -76,7 +64,6 @@ class SsrApi
         $headers = $this->curl->getHeaders();
 
         $this->activity->addEvent(
-            $parentOperation,
             'ssr.api.cache',
             [
                 'cache' => $headers['x-ssr-cache']?? null,

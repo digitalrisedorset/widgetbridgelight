@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace ReactEdge\WidgetBridge\Model\Renderer\SsrRenderer;
 
 use ReactEdge\WidgetBridge\Api\ActivityInterface;
-use ReactEdge\OpenTelemetry\Api\OperationInterface;
 use ReactEdge\WidgetBridge\Model\RegistryReader;
 
 class ContractValidator
@@ -18,26 +17,16 @@ class ContractValidator
     }
 
     /**
-     * @param OperationInterface $render
      * @param string $widgetId
      * @return Contract|null
      */
     public function validate(
-        OperationInterface $render,
         string $widgetId,
     ): ?Contract
     {
         $json = $this->registryReader->getWidgetContract($widgetId);
 
         if (empty($json)) {
-            $this->activity->failOperation(
-                $render,
-                [
-                    'ssr.missing' => true,
-                    'widget.id' => $widgetId,
-                ]
-            );
-
             return null;
         }
 
@@ -45,7 +34,6 @@ class ContractValidator
             $contract = $this->contractFactory->create($json);
         } catch (\Throwable $exception) {
             $this->activity->failOperation(
-                $render,
                 [
                     'ssr.invalid' => true,
                     'widget.id' => $widgetId,
@@ -57,7 +45,6 @@ class ContractValidator
         }
 
         $this->activity->addEvent(
-            $render,
             'Contract Loaded',
             [
                 'contract.id' => $contract->getId(),
@@ -66,7 +53,6 @@ class ContractValidator
         );
 
         $this->activity->addEvent(
-            $render,
             'SSR Strategy Selected',
             [
                 'widget' => $contract->getWidget(),
