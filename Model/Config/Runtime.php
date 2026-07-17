@@ -25,10 +25,7 @@ class Runtime
                     "apiKey" => $this->getGoogleApiKey(),
                     "placeId" => $this->getGooglePlaceId(),
                 ],
-                "magentoGraphql" => $this->getGraphqlConfig(),
-                "intentApi" => [
-                    "baseUrl" => $this->config->getIntentApiBaseUrl()
-                ]
+                "magentoGraphql" => $this->getGraphqlConfig()
             ],
             "context" => [
                 "storeCode" => $this->storeManager->getStore()->getCode(),
@@ -55,20 +52,11 @@ class Runtime
         return $this->config->getBaseUrl();
     }
 
-    public function getMagentoInternalUrl()
-    {
-        return $this->config->getMagentoInternalUrl();
-    }
-
     private function getGraphqlConfig(): array
     {
         $graphqlConfig = [
             'api' => "{$this->getBaseUrl()}/graphql",
         ];
-
-        if ($internalUrl = $this->getMagentoInternalUrl()) {
-            $graphqlConfig['internalApi'] = "{$internalUrl}/graphql";
-        }
 
         return  $graphqlConfig;
     }
