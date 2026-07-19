@@ -12,4 +12,5 @@ if (!$viewModel->isEnabled($widgetId)) {
 ?>
 
 <productgallery-widget data-load="eager">
+    <?= $viewModel->getWidgetSSRHtml($widgetId); ?>
 </productgallery-widget>
