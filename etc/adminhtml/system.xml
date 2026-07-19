@@ -233,6 +233,21 @@
                     <comment>Use the ReactEdge SSR service when rendering supported widgets.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
+
+                <field id="base_url"
+                       translate="label comment"
+                       type="text"
+                       sortOrder="20"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>SSR Base URL</label>
+                    <comment>Base URL of the ReactEdge SSR service (for example: http://localhost:4000).</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <validate>required-entry validate-url</validate>
+                </field>
             </group>
         </section>
 

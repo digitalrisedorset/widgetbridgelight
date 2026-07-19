@@ -5,6 +5,7 @@ namespace ReactEdge\WidgetBridge\Model\Renderer\SsrRenderer;
 
 use Laminas\ReCaptcha\Exception;
 use ReactEdge\WidgetBridge\Api\ActivityInterface;
+use ReactEdge\WidgetBridge\Model\Config\Runtime as RuntimeConfig;
 
 class DynamicRenderer
 {
@@ -12,8 +13,8 @@ class DynamicRenderer
     public function __construct(
         private SsrApi             $ssrApi,
         private ActivityInterface  $activity,
-        private SsrSnapshotStorage $snapshotStorage,
-        private SsrCacheHandler $ssrCacheHandler
+        private SsrCacheHandler $ssrCacheHandler,
+        private RuntimeConfig      $runtimeConfig,
     ) {
     }
 
@@ -26,25 +27,17 @@ class DynamicRenderer
             'widget' => $contract->getWidget(),
             'contract' => $contract->getContract(),
             'contractFile' => $contract->getContractFile(),
+            'runtimeConfig' => $this->runtimeConfig->getRuntimeConfig()
         ];
 
         $cachedHtml = $this->ssrCacheHandler->loadCache($payload);
 
         if ($cachedHtml !== null) {
-            return $cachedHtml;
+           return $cachedHtml;
         }
 
-        $ssrRequest = $this->activity->startChildOperation(
-            'ssr.api.request',
-            [
-                'widget.id' => $widgetId,
-                'contract.widget' => $contract->getWidget(),
-                'contract.file' => $contract->getContractFile(),
-            ]
-        );
-
         try {
-            $result = $this->ssrApi->requestSSR($ssrRequest, $payload);
+            $result = $this->ssrApi->requestSSR($payload);
             $this->ssrCacheHandler->saveCache($payload, $result);
 
             $ssr = is_string($result) ? $result : '';
@@ -54,25 +47,18 @@ class DynamicRenderer
                 throw new Exception('Could not generate a valid SSR content.');
             }
 
-            $this->snapshotStorage->save(
-                $render->getId(),
-                $html
-            );
-
             $this->activity->addEvent(
                 'SSR Dynamic Render Completed',
                 [
                     'css.length' => strlen($contract->getSsrCss()),
                     'ssr.length' => strlen($ssr),
-                    'html.length' => strlen($html),
-                    'snapshot.saved' => $render->getId() . '.html',
+                    'html.length' => strlen($html)
                 ]
             );
 
             return $html;
         } catch (\Throwable $e) {
             $this->activity->failOperation(
-                $ssrRequest,
                 [
                     'exception.class' => get_class($e),
                     'exception.message' => $e->getMessage(),

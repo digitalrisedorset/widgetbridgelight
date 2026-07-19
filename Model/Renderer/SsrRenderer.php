@@ -60,8 +60,7 @@ class SsrRenderer
                 'SSR Dynamic Render Completed',
                 [
                     'css.length' => strlen($contract->getSsrCss()),
-                    'ssr.length' => strlen($result),
-                    'snapshot.saved' => $render->getId() . '.html'
+                    'ssr.length' => strlen($result)
                 ]
             );
 
